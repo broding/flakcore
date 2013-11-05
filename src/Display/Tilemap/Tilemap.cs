@@ -27,13 +27,6 @@ namespace Display.Tilemap
         private List<TileLayer> Layers;
 		private List<Tileset> Tilesets;
 
-		private bool firstBeatDone = false;
-		private float countdownTimer = 0;
-		private float timeBetween = 200;
-		private SoundEffect soundHeartbeat;
-		public float beatRate = 1000;
-		public bool heartIsBeating = true;
-
         public Tilemap()
         {
             this.Layers = new List<TileLayer>();
