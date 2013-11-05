@@ -87,7 +87,7 @@ namespace Flakcore.Display.ParticleEngine
                 modifier.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
             worldProperties.Position.X *= this.ScrollFactor.X;
             worldProperties.Position.Y *= this.ScrollFactor.Y;

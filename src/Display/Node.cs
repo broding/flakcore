@@ -155,9 +155,12 @@ namespace Flakcore.Display
             }
         }
 
+		/**
+		 * DrawCall version when no parent properties are being given
+		 */
         public void DrawCall(SpriteBatch spriteBatch)
         {
-            WorldProperties worldProperties = new WorldProperties();
+            DrawProperties worldProperties = new DrawProperties();
             worldProperties.Position = this.Position;
             worldProperties.Alpha = this.Alpha;
             worldProperties.Depth = this.Depth;
@@ -165,7 +168,7 @@ namespace Flakcore.Display
             this.DrawCall(spriteBatch, worldProperties);
         }
 
-        public virtual void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public virtual void DrawCall(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
             if (!Visable || !Active)
                 return;
@@ -340,7 +343,7 @@ namespace Flakcore.Display
         }
     }
 
-    public struct WorldProperties
+    public struct DrawProperties
     {
         public Vector2 Position;
         public float Alpha;
