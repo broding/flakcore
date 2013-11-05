@@ -323,7 +323,6 @@ namespace Flakcore.Display
             clone.Velocity = new Vector2(Velocity.X, Velocity.Y);
             clone.Width = Width;
             clone.Height = Height;
-            clone.Parent = Parent;
 
             return clone;
         }
