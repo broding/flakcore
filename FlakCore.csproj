@@ -58,19 +58,6 @@
     <Compile Include="src\Display\Camera.cs" />
     <Compile Include="src\Display\Label.cs" />
     <Compile Include="src\Display\Layer.cs" />
-    <Compile Include="src\Display\Level\Architect.cs" />
-    <Compile Include="src\Display\Level\Block.cs" />
-    <Compile Include="src\Display\Level\Builder.cs" />
-    <Compile Include="src\Display\Level\Dungeon.cs" />
-    <Compile Include="src\Display\Level\Furnisher.cs" />
-    <Compile Include="src\Display\Level\Level.cs" />
-    <Compile Include="src\Display\Level\LevelBackground.cs" />
-    <Compile Include="src\Display\Level\LevelObjects\End.cs" />
-    <Compile Include="src\Display\Level\LevelObjects\Ladder.cs" />
-    <Compile Include="src\Display\Level\LevelObjects\LevelObject.cs" />
-    <Compile Include="src\Display\Level\LevelObjects\Start.cs" />
-    <Compile Include="src\Display\Level\Room.cs" />
-    <Compile Include="src\Display\Level\RoomType.cs" />
     <Compile Include="src\Display\Node.cs" />
     <Compile Include="src\Display\ParticleEngine\EmitterData\BasicEmitterData.cs" />
     <Compile Include="src\Display\ParticleEngine\Emitters\BasicEmitter.cs" />
@@ -156,7 +143,6 @@
     <None Include="Content\fonts\DefaultFont.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="src\Display\Tilemap\Tilemap.cs.orig" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
