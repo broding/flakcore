@@ -10,7 +10,7 @@ namespace Flakcore
     public class Input
     {
         private GamePadState[] PreviousGamepadStates = new GamePadState[4];
-        private KeyboardState[] PreviousKeyboardStates = new KeyboardState[4];
+		private KeyboardState PreviousKeyboardState;
 
         private Dictionary<PlayerIndex, TimeSpan> vibratingTime = new Dictionary<PlayerIndex, TimeSpan>()
         {
@@ -35,10 +35,7 @@ namespace Flakcore
             this.PreviousGamepadStates[(int)PlayerIndex.Three] = GamePad.GetState(PlayerIndex.Three);
             this.PreviousGamepadStates[(int)PlayerIndex.Four] = GamePad.GetState(PlayerIndex.Four);
 
-            this.PreviousKeyboardStates[(int)PlayerIndex.One] = Keyboard.GetState(PlayerIndex.One);
-            this.PreviousKeyboardStates[(int)PlayerIndex.Two] = Keyboard.GetState(PlayerIndex.Two);
-            this.PreviousKeyboardStates[(int)PlayerIndex.Three] = Keyboard.GetState(PlayerIndex.Three);
-            this.PreviousKeyboardStates[(int)PlayerIndex.Four] = Keyboard.GetState(PlayerIndex.Four);
+			this.PreviousKeyboardState = Keyboard.GetState();
 
             for (int i = 0; i < Vibrating.Count; i++)
             {
@@ -91,11 +88,11 @@ namespace Flakcore
                 return false;
         }
 
-        public bool JustPressed(PlayerIndex player, Keys key)
+        public bool JustPressed(Keys key)
         {
-            KeyboardState currentState = Keyboard.GetState(player);
+			KeyboardState currentState = Keyboard.GetState();
 
-            if (currentState.IsKeyDown(key) && this.PreviousKeyboardStates[(int)player].IsKeyUp(key))
+            if (currentState.IsKeyDown(key) && this.PreviousKeyboardState.IsKeyUp(key))
                 return true;
             else
                 return false;
