@@ -8,13 +8,13 @@ namespace Flakcore.Utils
 {
     public class Pool<T> where T : IPoolable
     {
-        private int InitialSize;
-        private bool CanResize;
-        private Predicate<T> IsItemValid;
-        private Func<T> AllocateItem;
+        private int initialSize;
+        private Predicate<T> isItemValid;
+        private Func<T> allocateItem;
+		private bool canResize;
 
-        private T[] Items;
-        private int NextIndex;
+        private T[] items;
+        private int nextIndex;
 
         public Pool(int initialSize, bool canResize, Predicate<T> isItemValid, Func<T> allocateItem)
         {
@@ -25,36 +25,36 @@ namespace Flakcore.Utils
             if (allocateItem == null)
                 throw new ArgumentNullException("allocateFunc");
 
-            this.InitialSize = initialSize;
-            this.CanResize = canResize;
-            this.IsItemValid = isItemValid;
-            this.AllocateItem = allocateItem;
+            this.initialSize = initialSize;
+            this.canResize = canResize;
+            this.isItemValid = isItemValid;
+            this.allocateItem = allocateItem;
 
-            this.Items = new T[initialSize];
-            this.NextIndex = 0;
+            this.items = new T[initialSize];
+            this.nextIndex = 0;
 
             this.InitializeItems();
         }
 
         private void InitializeItems()
         {
-            for (int i = 0; i < this.InitialSize; i++)
+            for (int i = 0; i < this.initialSize; i++)
             {
-                this.Items[i] = this.AllocateItem();
-                this.Items[i].PoolIndex = i;
-                this.Items[i].ReportDeadToPool = this.ReportDead;
+                this.items[i] = this.allocateItem();
+                this.items[i].PoolIndex = i;
+                this.items[i].ReportDeadToPool = this.ReportDead;
             }
         }
 
         public T New()
         {
-            for (int i = 0; i < this.Items.Length; i++)
+            for (int i = 0; i < this.items.Length; i++)
             {
-                T item = this.Items[i];
+                T item = this.items[i];
 
-                if (this.IsItemValid(item))
+                if (this.isItemValid(item))
                 {
-                    this.NextIndex = ++i;
+                    this.nextIndex = ++i;
                     return item;
                 }
             }
@@ -64,8 +64,8 @@ namespace Flakcore.Utils
 
         public void ReportDead(int index)
         {
-            if (index < this.NextIndex)
-                this.NextIndex = index;
+            if (index < this.nextIndex)
+                this.nextIndex = index;
         }
     }
 }

@@ -35,8 +35,6 @@ namespace Display.Tilemap
             this.Properties = new Dictionary<string, string>();
 
             CollisionSolver.Tilemap = this;
-
-			soundHeartbeat = Controller.Content.Load<SoundEffect>("sounds/heartbeat");
         }
 
         public void LoadMap(string path, int tileWidth, int tileHeight)
