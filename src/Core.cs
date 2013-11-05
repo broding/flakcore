@@ -20,10 +20,10 @@ namespace Flakcore
         public CollisionSolver CollisionSolver { get; private set; }
 
 		private GraphicsDeviceManager graphics;
-        private QuadTree CollisionQuad;
-        private Stopwatch Stopwatch;
+        private QuadTree collisionQuadTree;
+        private Stopwatch stopwatch;
 
-        private State CurrentState;
+        private State currentState;
 
         public Core(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content)
         {
@@ -45,44 +45,44 @@ namespace Flakcore
             Controller.LayerController.AddLayer("base");
             SetupQuadTree();
 
-            this.Stopwatch = new Stopwatch();
+            this.stopwatch = new Stopwatch();
         }
 
         public void Update(GameTime gameTime)
         {
-            if (this.CurrentState == null)
+            if (this.currentState == null)
                 return;
 
-            this.Stopwatch.Reset();
-            this.Stopwatch.Start();
+            this.stopwatch.Reset();
+            this.stopwatch.Start();
             ResetCollisionQuadTree();
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Reset Collision Quad", this.Stopwatch.ElapsedMilliseconds + " ms");
+            this.stopwatch.Stop();
+            DebugInfo.AddDebugItem("Reset Collision Quad", this.stopwatch.ElapsedMilliseconds + " ms");
 
-            this.Stopwatch.Reset();
-            this.Stopwatch.Start();
+            this.stopwatch.Reset();
+            this.stopwatch.Start();
             for(int i = 0; i < Controller.LayerController.Layers.Count; i++)
             {
                 Controller.LayerController.Layers[i].Update(gameTime);
             }
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
+            this.stopwatch.Stop();
+            DebugInfo.AddDebugItem("Update", this.stopwatch.ElapsedMilliseconds + " ms");
 
-            this.Stopwatch.Reset();
-            this.Stopwatch.Start();
+            this.stopwatch.Reset();
+            this.stopwatch.Start();
             this.CollisionSolver.resolveCollisions(gameTime);
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Resolve Collisions", this.Stopwatch.ElapsedMilliseconds + " ms");
+            this.stopwatch.Stop();
+            DebugInfo.AddDebugItem("Resolve Collisions", this.stopwatch.ElapsedMilliseconds + " ms");
 
-            this.Stopwatch.Reset();
-            this.Stopwatch.Start();
+            this.stopwatch.Reset();
+            this.stopwatch.Start();
 
             foreach (Layer layer in Controller.LayerController.Layers)
             {
                 layer.PostUpdate(gameTime);
             }
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
+            this.stopwatch.Stop();
+            DebugInfo.AddDebugItem("Post Update", this.stopwatch.ElapsedMilliseconds + " ms");
 
             DebugInfo.AddDebugItem("Update calls", Controller.UpdateCalls + " times");
             DebugInfo.AddDebugItem("Allocated memory", System.GC.GetTotalMemory(false) / 131072 + " mb");
@@ -99,12 +99,12 @@ namespace Flakcore
         {
 			this.graphics.GraphicsDevice.Clear (Color.Aquamarine);
 
-            if (this.CurrentState == null)
+            if (this.currentState == null)
                 return;
 
-            this.Stopwatch.Reset();
-            this.Stopwatch.Start();
-            Controller.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
+            this.stopwatch.Reset();
+            this.stopwatch.Start();
+            Controller.Graphics.GraphicsDevice.Clear(currentState.BackgroundColor);
 
             Controller.LayerController.SortLayersByDepth();
 
@@ -157,8 +157,8 @@ namespace Flakcore
             DrawCollisionQuad(spriteBatch);
             spriteBatch.End();
 
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
+            this.stopwatch.Stop();
+            DebugInfo.AddDebugItem("Draw", this.stopwatch.ElapsedMilliseconds + " ms");
             DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
 
             spriteBatch.Begin();
@@ -168,31 +168,31 @@ namespace Flakcore
 
         public void SwitchState(State state)
         {
-            if (this.CurrentState != null)
+            if (this.currentState != null)
             {
                 Controller.LayerController.GetLayer("base").RemoveAllChildren();
             }
 
-            this.CurrentState = null;
-            this.CurrentState = state;
-            Controller.LayerController.GetLayer("base").AddChild(this.CurrentState);
+            this.currentState = null;
+            this.currentState = state;
+            Controller.LayerController.GetLayer("base").AddChild(this.currentState);
         }
 
         public void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
         {
-            this.CurrentState = null;
-            this.CurrentState = (State)Activator.CreateInstance(state);
+            this.currentState = null;
+            this.currentState = (State)Activator.CreateInstance(state);
         }
 
         private void ResetCollisionQuadTree()
         {
-            this.CollisionQuad.clear();
+            this.collisionQuadTree.clear();
 
-            List<Node> children = this.CurrentState.GetAllCollidableChildren(new List<Node>());
+            List<Node> children = this.currentState.GetAllCollidableChildren(new List<Node>());
 
             foreach (Node child in children)
             {
-                this.CollisionQuad.insert(child);
+                this.collisionQuadTree.insert(child);
             }
 #if(DEBUG)
             DebugInfo.AddDebugItem("Collidable Children", children.Count + " children");
@@ -204,7 +204,7 @@ namespace Flakcore
             Texture2D blank = new Texture2D(Controller.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[]{Color.White});
 
-            List<BoundingRectangle> quads = CollisionQuad.getAllQuads(new List<BoundingRectangle>());
+            List<BoundingRectangle> quads = collisionQuadTree.getAllQuads(new List<BoundingRectangle>());
 
             foreach (BoundingRectangle quad in quads)
             {
@@ -221,8 +221,8 @@ namespace Flakcore
 
         public void SetupQuadTree()
         {
-            CollisionQuad = new QuadTree(0, new BoundingRectangle(0, 0, Controller.WorldBounds.Width, Controller.WorldBounds.Height));
-            CollisionSolver = new CollisionSolver(CollisionQuad);
+            collisionQuadTree = new QuadTree(0, new BoundingRectangle(0, 0, Controller.WorldBounds.Width, Controller.WorldBounds.Height));
+            CollisionSolver = new CollisionSolver(collisionQuadTree);
         }
     }
 }
