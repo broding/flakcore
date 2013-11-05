@@ -17,31 +17,31 @@ namespace Flakcore.Display
         public OffScreenAction OffScreenAction;
         public SpriteEffects SpriteEffects;
 
-        private List<Animation> Animations;
-        private bool Animating;
-        private double AnimationTimer;
-        private int CurrentFrame;
-        private Animation CurrentAnimation;
+        private List<Animation> animations;
+        private bool animating;
+        private double animationTimer;
+        private int currentFrame;
+        private Animation currentAnimation;
 
-        protected static Vector2 DrawPosition, DrawScale;
-        protected static Rectangle DrawRectangle;
+        protected static Vector2 drawPosition, drawScale;
+        protected static Rectangle drawRectangle;
 
         public Sprite() : base()
         {
-            Animations = new List<Animation>();
+            animations = new List<Animation>();
             Facing = Facing.Right;
             Color = Color.White;
             OffScreenAction = OffScreenAction.NO_DRAW;
             SpriteEffects = new SpriteEffects();
 
-            if (DrawPosition != null)
-                Sprite.DrawPosition = Vector2.Zero;
+            if (drawPosition != null)
+                Sprite.drawPosition = Vector2.Zero;
 
-            if (DrawScale != null)
-                Sprite.DrawScale = Vector2.Zero;
+            if (drawScale != null)
+                Sprite.drawScale = Vector2.Zero;
 
-            if (DrawRectangle != null)
-                Sprite.DrawRectangle = Rectangle.Empty;
+            if (drawRectangle != null)
+                Sprite.drawRectangle = Rectangle.Empty;
         }
 
         public void LoadTexture(string assetName)
@@ -59,29 +59,29 @@ namespace Flakcore.Display
             this.Texture = texture;
             this.Width = width;
             this.Height = height;
-            this.Animating = false;
+            this.animating = false;
             this.SourceRectangle = new Rectangle(0, 0, width, height);
         }
 
         public void AddAnimation(string name, int[] frames, float frameRate)
         {
-            Animations.Add(new Animation(name, frames, frameRate));
+            animations.Add(new Animation(name, frames, frameRate));
         }
 
         public void PlayAnimation(string name)
         {
             // check if the wanted animated is already running
-            if (CurrentAnimation.name == name)
+            if (currentAnimation.name == name)
                 return;
 
-            foreach (Animation animation in Animations)
+            foreach (Animation animation in animations)
             {
                 if (animation.name == name)
                 {
-                    CurrentAnimation = animation;
-                    Animating = true;
-                    AnimationTimer = 0;
-                    CurrentFrame = 0;
+                    currentAnimation = animation;
+                    animating = true;
+                    animationTimer = 0;
+                    currentFrame = 0;
 
                     return;
                 }
@@ -93,22 +93,22 @@ namespace Flakcore.Display
             base.Update(gameTime);
 
             // if animating, then update all animation stuff
-            if (Animating)
+            if (animating)
             {
-                AnimationTimer += gameTime.ElapsedGameTime.TotalSeconds;
-                if (AnimationTimer > CurrentAnimation.frameRate)
+                animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if (animationTimer > currentAnimation.frameRate)
                 {
-                    if (CurrentFrame == CurrentAnimation.frames.Length-1)
-                        CurrentFrame = 0;
+                    if (currentFrame == currentAnimation.frames.Length-1)
+                        currentFrame = 0;
                     else
-                        CurrentFrame++;
+                        currentFrame++;
 
-                    AnimationTimer = 0;
+                    animationTimer = 0;
                 }
             }
         }
 
-        public override void DrawCall(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void DrawCall(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
             worldProperties.Position += this.Position;
             worldProperties.Alpha = Math.Min(this.Alpha, worldProperties.Alpha);
@@ -129,7 +129,7 @@ namespace Flakcore.Display
 
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public virtual void Draw(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
             if (this.Texture == null)
                 return;
@@ -140,10 +140,10 @@ namespace Flakcore.Display
             worldProperties.Position.X = (float)Math.Round(worldProperties.Position.X);
             worldProperties.Position.Y = (float)Math.Round(worldProperties.Position.Y);
 
-            if (Animating)
+            if (animating)
                 spriteBatch.Draw(Texture,
                     worldProperties.Position,
-                    new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
+                    new Rectangle(currentAnimation.frames[currentFrame] * Width, 0, Width, Height),
                     this.Color * worldProperties.Alpha,
                     this.Rotation,
                     this.Origin,
