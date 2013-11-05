@@ -139,67 +139,6 @@ namespace Display.Tilemap
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-			if (heartIsBeating)
-			{
-				if (firstBeatDone)
-				{
-					if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < beatRate - 10)
-					{
-						Tile.CurrentTexture = Tile.NormalMap;
-					}
-					countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
-					if (countdownTimer <= 0)
-					{
-						//beat once
-						Tile.CurrentTexture = Tile.SmallMap;
-						firstBeatDone = false;
-						countdownTimer = timeBetween;
-						soundHeartbeat.Play(0.2f, 0, 0);
-					}
-				} else
-				{
-					if (Tile.CurrentTexture == Tile.SmallMap && countdownTimer < timeBetween - 10)
-					{
-						Tile.CurrentTexture = Tile.NormalMap;
-					}
-					countdownTimer -= gameTime.ElapsedGameTime.Milliseconds;
-					if (countdownTimer <= 0)
-					{
-						//beat once
-						Tile.CurrentTexture = Tile.SmallMap;
-						firstBeatDone = true;
-						countdownTimer = beatRate;
-					}
-				}
-			}
-
-            /*this.GlobalTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (this.GlobalTimer > 600)
-            {
-                this.BeatTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                Tile.CurrentTexture = Tile.SmallMap;
-
-                if (this.BeatTimer > 100)
-                {
-                    this.BeatAmount++;
-                    this.BeatTimer = 0;
-
-                    if (this.BeatAmount == 2)
-                    {
-                        this.BeatAmount = 0;
-                        this.BeatTimer = 100;
-                        this.GlobalTimer = 0;
-                        Tile.CurrentTexture = Tile.NormalMap;
-                    }
-                }
-            }*/
-        }
-
         private Tileset getCorrectTileset(int gid)
         {
             Tileset best = null;
