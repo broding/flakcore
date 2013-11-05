@@ -19,6 +19,7 @@ namespace Flakcore
         public List<Camera> Cameras { get; private set; }
         public CollisionSolver CollisionSolver { get; private set; }
 
+		private GraphicsDeviceManager graphics;
         private QuadTree CollisionQuad;
         private Stopwatch Stopwatch;
 
@@ -28,6 +29,7 @@ namespace Flakcore
         {
             Controller.Initialize(screenSize, graphics, content, this);
 
+			this.graphics = graphics;
             graphics.PreferredBackBufferWidth = (int)screenSize.X;
             graphics.PreferredBackBufferHeight = (int)screenSize.Y;
             graphics.SynchronizeWithVerticalRetrace = false;
@@ -95,6 +97,8 @@ namespace Flakcore
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+			this.graphics.GraphicsDevice.Clear (Color.Aquamarine);
+
             if (this.CurrentState == null)
                 return;
 
