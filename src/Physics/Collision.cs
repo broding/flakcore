@@ -77,8 +77,6 @@ namespace Flakcore.Physics
                 DirtyNode1.RoundPosition();
                 DirtyNode2.RoundPosition();
 
-                BoundingRectangle box1 = DirtyNode1.GetBoundingBox();
-                BoundingRectangle box2 = DirtyNode2.GetBoundingBox();
                 intersectionDepth = RectangleExtensions.GetIntersectionDepth(DirtyNode1.GetBoundingBox(), DirtyNode2.GetBoundingBox()).Y;
                 if (intersectionDepth != 0)
                     overlapY(intersectionDepth);
