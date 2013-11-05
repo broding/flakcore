@@ -8,7 +8,6 @@ using Flakcore.Display;
 using Microsoft.Xna.Framework.Content;
 using Flakcore.Utils;
 using Flakcore.Physics;
-using Flakcore.Display.Level;
 using System.Diagnostics;
 using System.Threading;
 

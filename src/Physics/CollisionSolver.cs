@@ -5,13 +5,11 @@ using System.Text;
 using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Display.Tilemap;
-using Flakcore.Display.Level;
 
 namespace Flakcore.Physics
 {
     public class CollisionSolver
     {
-        public static Level Level;
         public static Tilemap Tilemap;
 
         private List<Collision> Collisions;
