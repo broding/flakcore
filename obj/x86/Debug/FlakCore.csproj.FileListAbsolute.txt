@@ -1,0 +1,13 @@
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\FlakCore.exe
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\FlakCore.pdb
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\obj\x86\Debug\FlakCore.exe
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\obj\x86\Debug\FlakCore.pdb
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\Content\fonts\DefaultFont.spritefont
+C:\Users\Bas2\Git\draughts\FlakCore\FlakCore\bin\WindowsGL\Debug\Content\fonts\bigFont.spritefont
+C:\Users\Bas2\Git\draughts\XNA engine\FlakCore\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bas2\Git\draughts\XNA engine\FlakCore\obj\x86\Debug\FlakCore.exe

@@ -1,0 +1,1 @@
+C:\Users\Bas2\Git\draughts\XNA engine\FlakCore\obj\x86\Release\ResolveAssemblyReference.cache
