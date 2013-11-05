@@ -30,12 +30,12 @@ namespace Flakcore.Display
             this.Height = height * this.TiledHeight;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, WorldProperties worldProperties)
+        public override void Draw(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
             int amountY = this.TiledHeight / this.Texture.Height;
 
-            WorldProperties newworldProperties = new WorldProperties();
+            DrawProperties newworldProperties = new DrawProperties();
             newworldProperties.Alpha = this.Alpha;
 
             for (int x = 0; x < amountX; x++)
