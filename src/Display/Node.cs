@@ -50,20 +50,20 @@ namespace Flakcore.Display
         public Sides CollidableSides;
         public bool Active { get; protected set; }
 
-        private List<string> CollisionGroups;
-        private List<Activity> Activities;
+        private List<string> collisionGroups;
+        private List<Activity> activities;
 
         public Node()
         {
             Children = new List<Node>(1000);
-            CollisionGroups = new List<string>(10);
+            collisionGroups = new List<string>(10);
             this.Active = true;
             this.Collidable = false;
             this.Touching = new Sides();
             this.WasTouching = new Sides();
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
-            this.Activities = new List<Activity>();
+            this.activities = new List<Activity>();
         }
 
         public static float GetDrawDepth(float depth)
@@ -92,7 +92,7 @@ namespace Flakcore.Display
 
         public void AddActivity(Activity activity, bool startImmediately)
         {
-            this.Activities.Add(activity);
+            this.activities.Add(activity);
 
             if (startImmediately)
                 activity.Start();
@@ -100,7 +100,7 @@ namespace Flakcore.Display
 
         public void RemoveActivity(Activity activity)
         {
-            this.Activities.Remove(activity);
+            this.activities.Remove(activity);
 
             activity = null;
         }
@@ -122,8 +122,8 @@ namespace Flakcore.Display
                 }
             }
 
-            for (int i = 0; i < this.Activities.Count; i++)
-                this.Activities[i].Update(gameTime);
+            for (int i = 0; i < this.activities.Count; i++)
+                this.activities[i].Update(gameTime);
             
 
             this.Velocity.Y += this.Mass * Controller.Gravity;
@@ -266,22 +266,22 @@ namespace Flakcore.Display
 
         public void AddCollisionGroup(string groupName)
         {
-            this.CollisionGroups.Add(groupName);
+            this.collisionGroups.Add(groupName);
         }
 
         public void RemoveCollisionGroup(string groupName)
         {
-            this.CollisionGroups.Remove(groupName);
+            this.collisionGroups.Remove(groupName);
         }
 
         public bool IsMemberOfCollisionGroup(string groupName)
         {
-            return this.CollisionGroups.Contains(groupName);
+            return this.collisionGroups.Contains(groupName);
         }
 
         public bool HasCollisionGroups()
         {
-            return this.CollisionGroups.Count > 0;
+            return this.collisionGroups.Count > 0;
         }
 
         public Vector2 ScreenPosition
