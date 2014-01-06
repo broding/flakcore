@@ -74,6 +74,7 @@ namespace Flakcore
             this.stopwatch.Start();
 
 			currentState.Update (gameTime);
+			currentState.PostUpdate (gameTime);
 
             this.stopwatch.Stop();
             DebugInfo.AddDebugItem("Post Update", this.stopwatch.ElapsedMilliseconds + " ms");
@@ -155,9 +156,8 @@ namespace Flakcore
             List<Node> children = this.currentState.GetAllCollidableChildren(new List<Node>());
 
             foreach (Node child in children)
-            {
                 this.collisionQuadTree.insert(child);
-            }
+
 #if(DEBUG)
             DebugInfo.AddDebugItem("Collidable Children", children.Count + " children");
 #endif

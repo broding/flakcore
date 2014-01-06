@@ -39,6 +39,22 @@ namespace Flakcore.Display
             }
         }
 
+		public override void Update (GameTime gameTime)
+		{
+			base.Update (gameTime);
+
+			foreach (Layer layer in _layers)
+				layer.Update (gameTime);
+		}
+
+		public override void PostUpdate (GameTime gameTime)
+		{
+			base.PostUpdate (gameTime);
+
+			foreach (Layer layer in _layers)
+				layer.PostUpdate (gameTime);
+		}
+
 		public override void DrawCall (SpriteBatch spriteBatch, DrawProperties worldProperties)
 		{
 			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());

@@ -45,7 +45,7 @@ namespace Flakcore.Display
         public float Elasticity = 0f;
         public bool Visable = true;
         public bool Immovable = false;
-        public bool Collidable = true;
+        public bool Collidable = false;
         public bool UpdateChildren = true;
         public Sides CollidableSides;
         public bool Active { get; protected set; }
@@ -58,7 +58,6 @@ namespace Flakcore.Display
             Children = new List<Node>(1000);
             collisionGroups = new List<string>(10);
             this.Active = true;
-            this.Collidable = false;
             this.Touching = new Sides();
             this.WasTouching = new Sides();
             this.CollidableSides = new Sides();
@@ -126,7 +125,7 @@ namespace Flakcore.Display
                 this.activities[i].Update(gameTime);
 
             WasTouching = Touching;
-            Touching = new Sides();
+			Touching.Clear ();
         }
 
 

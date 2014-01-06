@@ -89,6 +89,11 @@ namespace Flakcore
             return Core.Cameras.Count;
         }
 
+		public static void Collide(Node node1, Node node2)
+		{
+			Core.CollisionSolver.addCollision(node1, node2, null, null);
+		}
+
         public static void Collide(Node node, string collideGroup)
         {
             Core.CollisionSolver.addCollision(node, collideGroup, null, null);

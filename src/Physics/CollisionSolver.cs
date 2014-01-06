@@ -14,39 +14,37 @@ namespace Flakcore.Physics
 
         private List<Collision> Collisions;
         private QuadTree QuadTree;
+		private QuadTree _quadTree; 
 
         public CollisionSolver(QuadTree quadTree)
         {
             this.Collisions = new List<Collision>();
             this.QuadTree = quadTree;
+			_quadTree = new QuadTree (0, Director.ScreenSize);
         }
+
+		public void Reset()
+		{
+			_quadTree.clear ();
+		}
+
+		public void addCollision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
+		{
+			QuadTree.insert (node1);
+			QuadTree.insert (node2);
+		}
 
         public void addCollision(Node node, string collideGroup, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
             List<Node> collidedNodes = new List<Node>();
 
-            if (this.IsLevelCollision(collideGroup))
-            {
-                this.GetCollidedTiles(node, collidedNodes);
-            }
-            else
-            {
-                QuadTree.retrieve(collidedNodes, node);
-            }
-
+			QuadTree.retrieve(collidedNodes, node);
 
             foreach (Node collideNode in collidedNodes)
             {
                 if (collideNode.IsMemberOfCollisionGroup(collideGroup))
                     this.addCollision(node, collideNode, callback, checker);
-            }
-
-            
-        }
-
-        private bool IsLevelCollision(string collideGroup)
-        {
-            return CollisionSolver.Tilemap.HasTileCollisionGroup(collideGroup);
+            }   
         }
 
         private void GetCollidedTiles(Node node, List<Node> collidedNodes)

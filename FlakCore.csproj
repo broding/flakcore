@@ -77,7 +77,6 @@
     <Compile Include="src\Display\Tilemap\Tileset.cs" />
     <Compile Include="src\FontController.cs" />
     <Compile Include="src\Input.cs" />
-    <Compile Include="src\LayerController.cs" />
     <Compile Include="src\Physics\Collision.cs" />
     <Compile Include="src\Physics\CollisionSolver.cs" />
     <Compile Include="src\Physics\QuadTree.cs" />
