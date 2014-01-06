@@ -74,11 +74,6 @@ namespace Flakcore
             RecalculateCameras();
         }
 
-        public static Camera GetCamera(int index)
-        {
-            return Core.Cameras.ElementAt(index);
-        }
-
         private static void RecalculateCameras()
         {
             int cameraWidth = (int)ScreenSize.X / Core.Cameras.Count;

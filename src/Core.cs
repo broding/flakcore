@@ -36,9 +36,9 @@ namespace Flakcore
             this.Cameras = new List<Camera>();
             Camera camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
             this.Cameras.Add(camera);
-            Director.CurrentDrawCamera = camera;
 
-            Director.WorldBounds = new Rectangle(0, 0, 2500,2000);
+            Director.CurrentDrawCamera = camera;
+            Director.WorldBounds = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
 
             SetupQuadTree();
 
