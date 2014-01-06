@@ -12,7 +12,6 @@ namespace Flakcore
 {
     public class Director
     {
-        public static float Gravity { get; set; }
         public static Input Input { get; private set; }
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static ContentManager Content { get; private set; }
@@ -38,7 +37,6 @@ namespace Flakcore
 
         public static void Initialize(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content, Core core)
         {
-            Director.Gravity = 14;
             Director.Graphics = graphics;
             Director.Content = content;
             Director.Input = new Input();
