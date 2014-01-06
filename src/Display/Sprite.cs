@@ -46,7 +46,7 @@ namespace Flakcore.Display
 
         public void LoadTexture(string assetName)
         {
-            this.LoadTexture(Controller.Content.Load<Texture2D>(assetName));
+            this.LoadTexture(Director.Content.Load<Texture2D>(assetName));
         }
 
         public void LoadTexture(Texture2D texture)
@@ -181,7 +181,7 @@ namespace Flakcore.Display
 
         public static Sprite CreateRectangle(Vector2 size, Color color)
         {
-            Texture2D rectangle = new Texture2D(Controller.Graphics.GraphicsDevice, 1, 1);
+            Texture2D rectangle = new Texture2D(Director.Graphics.GraphicsDevice, 1, 1);
             rectangle.SetData(new[] { color });
 
             Sprite sprite = new Sprite();

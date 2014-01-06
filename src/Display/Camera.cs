@@ -48,7 +48,7 @@ namespace Flakcore.Display
 
         public Vector2 TransformPosition(Vector2 position)
         {
-            return position - new Vector2(this.Position.X - Controller.ScreenSize.X / 2, this.Position.Y - Controller.ScreenSize.Y / 2); ;
+            return position - new Vector2(this.Position.X - Director.ScreenSize.X / 2, this.Position.Y - Director.ScreenSize.Y / 2); ;
         }
 
         public void update(GameTime gameTime)
@@ -59,11 +59,11 @@ namespace Flakcore.Display
                 Position.X = followNode.Position.X + followNode.Width / 2;
             }
 
-            Position.X = Math.Max(Controller.ScreenSize.X / this.zoom / 2, Position.X);
-            Position.Y = Math.Max(Controller.ScreenSize.Y / this.zoom / 2, Position.Y);
+            Position.X = Math.Max(Director.ScreenSize.X / this.zoom / 2, Position.X);
+            Position.Y = Math.Max(Director.ScreenSize.Y / this.zoom / 2, Position.Y);
 
-            this.BoundingBox.X = (int)Position.X - (int)Controller.ScreenSize.X / 2;
-            this.BoundingBox.Y = (int)Position.Y - (int)Controller.ScreenSize.Y / 2;
+            this.BoundingBox.X = (int)Position.X - (int)Director.ScreenSize.X / 2;
+            this.BoundingBox.Y = (int)Position.Y - (int)Director.ScreenSize.Y / 2;
         }
     }
 }

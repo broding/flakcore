@@ -16,11 +16,11 @@ namespace Flakcore.Display
 
         private Vector2 TextSize;
 
-        public Label() : this("", Controller.Content.Load<SpriteFont>("DefaultFont"))
+        public Label() : this("", Director.Content.Load<SpriteFont>("DefaultFont"))
         { 
         }
 
-        public Label(string text) : this(text, Controller.Content.Load<SpriteFont>("DefaultFont"))
+        public Label(string text) : this(text, Director.Content.Load<SpriteFont>("DefaultFont"))
         {
         }
 

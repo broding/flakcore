@@ -17,9 +17,9 @@ namespace Flakcore.Display
             : base()
         {
             this.RenderTarget = new RenderTarget2D(
-                Controller.Graphics.GraphicsDevice,
-                (int)Controller.ScreenSize.X,
-                (int)Controller.ScreenSize.Y,
+                Director.Graphics.GraphicsDevice,
+                (int)Director.ScreenSize.X,
+                (int)Director.ScreenSize.Y,
                 false,
                 SurfaceFormat.Color,
                 DepthFormat.None,

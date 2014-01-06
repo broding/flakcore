@@ -11,9 +11,13 @@ namespace Flakcore.Display
     {
         public Color BackgroundColor { get; protected set; }
 
+		private List<Layer> _layers;
+
         public State()
         {
-            this.BackgroundColor = Color.DarkSlateGray;
+			this.BackgroundColor = Color.DarkSlateGray;
+
+			_layers = new List<Layer> ();
         }
 
         public virtual void Load()
@@ -34,6 +38,39 @@ namespace Flakcore.Display
                 return nodes;
             }
         }
+
+		public override void DrawCall (SpriteBatch spriteBatch, DrawProperties worldProperties)
+		{
+			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+			base.DrawCall (spriteBatch, worldProperties);
+			spriteBatch.End();
+
+			foreach (Layer layer in _layers)
+			{
+				if (layer.Parent != null)
+					continue;
+
+				Director.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
+				Director.Graphics.GraphicsDevice.Clear(Color.Transparent);
+
+				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+				layer.DrawCall(spriteBatch);
+				spriteBatch.End();
+			}
+
+			Director.Graphics.GraphicsDevice.SetRenderTarget(null);
+
+			foreach (Layer layer in _layers)
+			{
+				if (layer.Parent != null)
+					continue;
+
+				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+
+				spriteBatch.Draw(layer.RenderTarget, Vector2.Zero, Color.White);
+				spriteBatch.End();
+			}
+		}
     }
 
     public enum StateTransition

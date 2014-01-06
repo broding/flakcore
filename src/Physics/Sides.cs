@@ -40,6 +40,11 @@ namespace Flakcore.Physics
             this.Right = false;
         }
 
+		public void Clear()
+		{
+			SetAllFalse ();
+		}
+
         public static bool operator ==(Sides sides1, Sides sides2)
         {
             return

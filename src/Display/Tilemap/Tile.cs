@@ -36,7 +36,7 @@ namespace Display.Tilemap
                 NormalMap = this.Tileset.Texture;
 
             if (SmallMap == null)
-                SmallMap = Controller.Content.Load<Texture2D>("tileset32-small");
+                SmallMap = Director.Content.Load<Texture2D>("tileset32-small");
 
             for (int i = 0; collisionGroups.Length > i; i++)
                 this.AddCollisionGroup(collisionGroups[i]);

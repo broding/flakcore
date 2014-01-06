@@ -9,7 +9,7 @@ using Flakcore.Physics;
 
 namespace Flakcore.Display
 {
-    public class Node : ICloneable
+    public class Node : ICloneable, IDisposable
     {
         private static float DrawDepth = 0;
 
@@ -107,7 +107,7 @@ namespace Flakcore.Display
 
         public virtual void Update(GameTime gameTime)
         {
-            Controller.UpdateCalls++;
+            Director.UpdateCalls++;
 
             if (!this.Active)
                 return;
@@ -124,9 +124,6 @@ namespace Flakcore.Display
 
             for (int i = 0; i < this.activities.Count; i++)
                 this.activities[i].Update(gameTime);
-            
-
-            this.Velocity.Y += this.Mass * Controller.Gravity;
 
             WasTouching = Touching;
             Touching = new Sides();
@@ -184,8 +181,10 @@ namespace Flakcore.Display
 
         public void RemoveAllChildren()
         {
-            Children = null;
-            Children = new List<Node>();
+			foreach (Node node in Children)
+				node.Dispose ();
+            
+			Children.Clear ();
         }
 
         public virtual BoundingRectangle GetBoundingBox()
@@ -288,7 +287,7 @@ namespace Flakcore.Display
         {
             get
             {
-                return Controller.CurrentDrawCamera.TransformPosition(this.WorldPosition);
+                return Director.CurrentDrawCamera.TransformPosition(this.WorldPosition);
             }
         }
 
@@ -335,6 +334,12 @@ namespace Flakcore.Display
             node.Height = this.Height;
             node.Parent = this.Parent;
         }
+
+		public void Dispose()
+		{
+			RemoveAllChildren ();
+			activities.Clear ();
+		}
 
         internal static void ResetDrawDepth()
         {

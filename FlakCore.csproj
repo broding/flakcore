@@ -47,7 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\Controller.cs" />
     <Compile Include="src\Core.cs" />
     <Compile Include="src\Display\Activities\AlphaTo.cs" />
     <Compile Include="src\Display\Activities\MoveTo.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="src\Utils\IPoolable.cs" />
     <Compile Include="src\Utils\Pool.cs" />
     <Compile Include="src\Utils\Util.cs" />
+    <Compile Include="src\Director.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

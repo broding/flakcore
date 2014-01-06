@@ -20,13 +20,13 @@ namespace Flakcore
         private void LoadFonts()
         {
              // load normal rooms
-            DirectoryInfo dir = new DirectoryInfo(Controller.Content.RootDirectory + "/fonts/");
+            DirectoryInfo dir = new DirectoryInfo(Director.Content.RootDirectory + "/fonts/");
             FileInfo[] files = dir.GetFiles("*.xnb", SearchOption.AllDirectories);
 
             foreach (FileInfo file in files)
             {
                 string fontName = Path.GetFileNameWithoutExtension(file.Name);
-                this.Fonts.Add(fontName, Controller.Content.Load<SpriteFont>(@"fonts/" + fontName));
+                this.Fonts.Add(fontName, Director.Content.Load<SpriteFont>(@"fonts/" + fontName));
             }
         }
 

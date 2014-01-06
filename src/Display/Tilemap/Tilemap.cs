@@ -88,7 +88,7 @@ namespace Display.Tilemap
                     }
                 }
 
-                Tileset tileset = new Tileset(Convert.ToInt32(element.Attribute("firstgid").Value), element.Attribute("name").Value, Convert.ToInt32(element.Element("image").Attribute("width").Value), Convert.ToInt32(element.Element("image").Attribute("height").Value), Controller.Content.Load<Texture2D>(assetName), tileCollisionGroups, properties);
+                Tileset tileset = new Tileset(Convert.ToInt32(element.Attribute("firstgid").Value), element.Attribute("name").Value, Convert.ToInt32(element.Element("image").Attribute("width").Value), Convert.ToInt32(element.Element("image").Attribute("height").Value), Director.Content.Load<Texture2D>(assetName), tileCollisionGroups, properties);
 
                 Tilesets.Add(tileset);
             }
