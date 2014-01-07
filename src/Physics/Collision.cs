@@ -62,11 +62,11 @@ namespace Flakcore.Physics
 				float oldVelocity = Node1.Velocity.Y;
 
 				this.Node1.Position.Y += overlap;
-				this.Node1.Velocity.Y = Node2.Velocity.Y / 2;
+				this.Node1.Velocity.Y = Node2.Velocity.Y / 20000;
 
 				// divide by two, simulates mass??
 				this.Node2.Position.Y -= overlap;
-				this.Node2.Velocity.Y = oldVelocity / 2;
+				this.Node2.Velocity.Y = oldVelocity / 100000;
             }
             else if (!Node1.Immovable)
             {
@@ -87,11 +87,11 @@ namespace Flakcore.Physics
 				float oldVelocity = Node1.Velocity.X;
 
 				this.Node1.Position.X += overlap;
-				this.Node1.Velocity.X = Node2.Velocity.X / 2;
+				this.Node1.Velocity.X = 0;
 
 				// divide by two, simulates mass??
 				this.Node2.Position.X -= overlap;
-				this.Node2.Velocity.X = oldVelocity / 2;
+				this.Node2.Velocity.X = 0;
             }
             else if (!Node1.Immovable)
             {

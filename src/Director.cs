@@ -91,23 +91,8 @@ namespace Flakcore
 
 		public static void Collide(Node node1, Node node2)
 		{
-			Core.CollisionSolver.addCollision(node1, node2, null, null);
+			Core.CollisionSolver.AddCollision(node1, node2, null, null);
 		}
-
-        public static void Collide(Node node, string collideGroup)
-        {
-            Core.CollisionSolver.addCollision(node, collideGroup, null, null);
-        }
-
-        public static void Collide(Node node, string collideGroup, Action<Node, Node> callback, Func<Node, Node, bool> checker)
-        {
-            Core.CollisionSolver.addCollision(node, collideGroup, callback, checker);
-        }
-
-        public static void Collide(Node node, string collideGroup, Action<Node, Node> callback)
-        {
-            Core.CollisionSolver.addCollision(node, collideGroup, callback, null);
-        }
 
     }
 }
