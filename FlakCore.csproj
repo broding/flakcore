@@ -90,6 +90,7 @@
     <Compile Include="src\Utils\Pool.cs" />
     <Compile Include="src\Utils\Util.cs" />
     <Compile Include="src\Director.cs" />
+    <Compile Include="src\Audio\Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="src\Audio\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
