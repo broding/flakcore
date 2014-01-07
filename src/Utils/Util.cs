@@ -8,9 +8,23 @@ namespace Flakcore.Utils
 {
     public class Util
     {
+		private static Random _random = new Random ();
+
+		public static Random Random
+		{
+			get { return _random; }
+		}
+
+		public static int RandomSeed {
+			set { 
+				RandomSeed = value;
+				_random = new Random (value);
+			}
+		}
+
         public static int RandomPositiveNegative()
         {
-            int number = new Random().Next(0, 2);
+            int number = _random.Next(0, 2);
 
             return number == 1 ? 1 : -1;
         }
@@ -18,11 +32,6 @@ namespace Flakcore.Utils
         public static int FacingToVelocity(Facing facing)
         {
             return facing == Facing.Left ? -1 : 1;
-        }
-
-        public static bool Visible(Microsoft.Xna.Framework.Vector2 position, int width, int height)
-        {
-            throw new NotImplementedException();
-        }
+        } 
     }
 }
