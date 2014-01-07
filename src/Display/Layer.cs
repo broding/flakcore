@@ -11,6 +11,7 @@ namespace Flakcore.Display
     {
         public string Name { get; set; }
         public RenderTarget2D RenderTarget { get; protected set; }
+		public Effect Effect { get; set; }
 
         public Layer()
             : base()

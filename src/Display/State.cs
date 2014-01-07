@@ -79,7 +79,7 @@ namespace Flakcore.Display
 				Director.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
 				Director.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
-				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, layer.Effect, Director.CurrentDrawCamera.GetTransformMatrix());
 				layer.DrawCall(spriteBatch);
 				spriteBatch.End();
 			}
