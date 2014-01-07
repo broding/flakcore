@@ -80,7 +80,7 @@ namespace Flakcore.Physics
 
         public void insert(Node node)
         {
-            if (!node.HasCollisionGroups() || !node.Active || !node.Collidable)
+            if (!node.Active || !node.Collidable)
                 return;
 
             if(!node.GetBoundingBox().Intersects(this.bounds))
@@ -130,6 +130,18 @@ namespace Flakcore.Physics
             returnObjects.AddRange(objects);
             return returnObjects;
         }
+
+		public bool isColliding(Node node1, Node node2)
+		{
+			List<Node> nodes = new List<Node> ();
+
+			retrieve (nodes, node1);
+
+			if (nodes.IndexOf (node2) != -1)
+				return true;
+
+			return false;
+		}
 
         public List<BoundingRectangle> getAllQuads(List<BoundingRectangle> quads)
         {

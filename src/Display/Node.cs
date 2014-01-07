@@ -45,7 +45,7 @@ namespace Flakcore.Display
         public float Elasticity = 0f;
         public bool Visable = true;
         public bool Immovable = false;
-        public bool Collidable = false;
+        public bool Collidable = true;
         public bool UpdateChildren = true;
         public Sides CollidableSides;
         public bool Active { get; protected set; }

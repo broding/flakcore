@@ -188,15 +188,22 @@ namespace Flakcore.Physics
         {
             if (!Node1.Immovable && !Node2.Immovable)
             {
+				System.Console.WriteLine (overlap);
+				this.node1PositionDiff.Y += overlap;
+				this.node1VelocityDiff.Y -= Node1.Velocity.Y;
+
+				// divide by two, simulates mass??
+				this.node2PositionDiff.Y -= overlap;
+				this.node2VelocityDiff.Y -= Node2.Velocity.Y;
             }
             else if (!Node1.Immovable)
             {
-                this.node1PositionDiff.Y += overlap;
+                this.node1PositionDiff.Y -= overlap;
                 this.node1VelocityDiff.Y -= Node1.Velocity.Y;
             }
             else if (!Node2.Immovable)
             {
-                this.node2PositionDiff.Y += overlap;
+                this.node2PositionDiff.Y -= overlap;
                 this.node2VelocityDiff.Y -= Node2.Velocity.Y;
             }
         }
@@ -205,15 +212,21 @@ namespace Flakcore.Physics
         {
             if (!Node1.Immovable && !Node2.Immovable)
             {
+				this.node1PositionDiff.X -= overlap;
+				this.node1VelocityDiff.X -= Node1.Velocity.X;
+
+				// divide by two, simulates mass??
+				this.node2PositionDiff.X += overlap;
+				this.node2VelocityDiff.X -= Node2.Velocity.X;
             }
             else if (!Node1.Immovable)
             {
-                this.node1PositionDiff.X += overlap;
+                this.node1PositionDiff.X -= overlap;
                 this.node1VelocityDiff.X -= Node1.Velocity.X;
             }
             else if (!Node2.Immovable)
             {
-                this.node2PositionDiff.X += overlap;
+                this.node2PositionDiff.X -= overlap;
                 this.node2VelocityDiff.X -= Node2.Velocity.X;
             }
         }
