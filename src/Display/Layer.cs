@@ -11,7 +11,6 @@ namespace Flakcore.Display
     {
         public string Name { get; set; }
         public RenderTarget2D RenderTarget { get; protected set; }
-        public Action<Layer, GameTime> PostEffectAction;
 
         public Layer()
             : base()
@@ -21,7 +20,7 @@ namespace Flakcore.Display
                 (int)Director.ScreenSize.X,
                 (int)Director.ScreenSize.Y,
                 false,
-                SurfaceFormat.Color,
+                SurfaceFormat.Vector4,
                 DepthFormat.None,
                 1,
                 RenderTargetUsage.DiscardContents

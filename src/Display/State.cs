@@ -24,6 +24,16 @@ namespace Flakcore.Display
         {
         }
 
+		protected void AddLayer(Layer layer)
+		{
+			_layers.Add (layer);
+		}
+
+		protected void RemoveLayer(Layer layer)
+		{
+			_layers.Remove (layer);
+		}
+
         public override List<Node> GetAllChildren(List<Node> nodes)
         {
             if (Children.Count == 0)
@@ -57,7 +67,7 @@ namespace Flakcore.Display
 
 		public override void DrawCall (SpriteBatch spriteBatch, DrawProperties worldProperties)
 		{
-			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
 			base.DrawCall (spriteBatch, worldProperties);
 			spriteBatch.End();
 
@@ -69,7 +79,7 @@ namespace Flakcore.Display
 				Director.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
 				Director.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
-				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
 				layer.DrawCall(spriteBatch);
 				spriteBatch.End();
 			}
