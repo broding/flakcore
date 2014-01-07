@@ -14,7 +14,6 @@ namespace Flakcore.Display
         public Facing Facing;
         public Color Color;
         public Rectangle SourceRectangle;
-        public OffScreenAction OffScreenAction;
         public SpriteEffects SpriteEffects;
 
         private List<Animation> animations;
@@ -23,25 +22,12 @@ namespace Flakcore.Display
         private int currentFrame;
         private Animation currentAnimation;
 
-        protected static Vector2 drawPosition, drawScale;
-        protected static Rectangle drawRectangle;
-
         public Sprite() : base()
         {
             animations = new List<Animation>();
             Facing = Facing.Right;
             Color = Color.White;
-            OffScreenAction = OffScreenAction.NO_DRAW;
             SpriteEffects = new SpriteEffects();
-
-            if (drawPosition != null)
-                Sprite.drawPosition = Vector2.Zero;
-
-            if (drawScale != null)
-                Sprite.drawScale = Vector2.Zero;
-
-            if (drawRectangle != null)
-                Sprite.drawRectangle = Rectangle.Empty;
         }
 
         public void LoadTexture(string assetName)
@@ -162,23 +148,6 @@ namespace Flakcore.Display
                     Node.GetDrawDepth(worldProperties.Depth));
         }
 
-        private bool OffScreen()
-        {
-            switch (this.OffScreenAction)
-            {
-                case OffScreenAction.NO_DRAW:
-                    return true;
-                case OffScreenAction.KILL:
-                    this.Deactivate();
-                    return true;
-                case OffScreenAction.NONE:
-                    return false;
-                default:
-                    return false;
-            }
-
-        }
-
         public static Sprite CreateRectangle(Vector2 size, Color color)
         {
             Texture2D rectangle = new Texture2D(Director.Graphics.GraphicsDevice, 1, 1);
@@ -200,12 +169,4 @@ namespace Flakcore.Display
         Left,
         Right
     }
-
-    public enum OffScreenAction
-    {
-        NONE,
-        NO_DRAW,
-        KILL
-    }
-
 }

@@ -37,9 +37,6 @@ namespace Display.Tilemap
 
             if (SmallMap == null)
                 SmallMap = Director.Content.Load<Texture2D>("tileset32-small");
-
-            for (int i = 0; collisionGroups.Length > i; i++)
-                this.AddCollisionGroup(collisionGroups[i]);
         }
 
         public override BoundingRectangle GetBoundingBox()

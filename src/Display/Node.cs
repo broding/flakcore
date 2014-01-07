@@ -50,13 +50,11 @@ namespace Flakcore.Display
         public Sides CollidableSides;
         public bool Active { get; protected set; }
 
-        private List<string> collisionGroups;
         private List<Activity> activities;
 
         public Node()
         {
             Children = new List<Node>(1000);
-            collisionGroups = new List<string>(10);
             this.Active = true;
             this.Touching = new Sides();
             this.WasTouching = new Sides();
@@ -117,7 +115,6 @@ namespace Flakcore.Display
                 for (int i = 0; i < childrenCount; i++)
                 {
                     this.Children[i].Update(gameTime);
-                    this.Children[i].PreCollisionUpdate(gameTime);
                 }
             }
 
@@ -126,11 +123,6 @@ namespace Flakcore.Display
 
             WasTouching = Touching;
 			Touching.Clear ();
-        }
-
-
-        public virtual void PreCollisionUpdate(GameTime gameTime)
-        {
         }
 
         public virtual void PostUpdate(GameTime gameTime)
@@ -260,26 +252,6 @@ namespace Flakcore.Display
         {
             this.Velocity.X = (float)Math.Round(this.Velocity.X);
             this.Velocity.Y = (float)Math.Round(this.Velocity.Y);
-        }
-
-        public void AddCollisionGroup(string groupName)
-        {
-            this.collisionGroups.Add(groupName);
-        }
-
-        public void RemoveCollisionGroup(string groupName)
-        {
-            this.collisionGroups.Remove(groupName);
-        }
-
-        public bool IsMemberOfCollisionGroup(string groupName)
-        {
-            return this.collisionGroups.Contains(groupName);
-        }
-
-        public bool HasCollisionGroups()
-        {
-            return this.collisionGroups.Count > 0;
         }
 
         public Vector2 ScreenPosition

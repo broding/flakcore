@@ -67,14 +67,6 @@ namespace Flakcore
             this.stopwatch.Stop();
             DebugInfo.AddDebugItem("Update", this.stopwatch.ElapsedMilliseconds + " ms");
 
-            this.stopwatch.Reset();
-            this.stopwatch.Start();
-
-			CollisionSolver.Resolve (gameTime);
-
-            this.stopwatch.Stop();
-
-            DebugInfo.AddDebugItem("Resolve Collisions", this.stopwatch.ElapsedMilliseconds + " ms");
 
             this.stopwatch.Reset();
             this.stopwatch.Start();
@@ -83,6 +75,15 @@ namespace Flakcore
 			currentState.PostUpdate (gameTime);
 
             this.stopwatch.Stop();
+
+			this.stopwatch.Reset();
+			this.stopwatch.Start();
+
+			CollisionSolver.Resolve (gameTime);
+
+			this.stopwatch.Stop();
+
+			DebugInfo.AddDebugItem("Resolve Collisions", this.stopwatch.ElapsedMilliseconds + " ms");
 
             DebugInfo.AddDebugItem("Post Update", this.stopwatch.ElapsedMilliseconds + " ms");
             DebugInfo.AddDebugItem("Update calls", Director.UpdateCalls + " times");

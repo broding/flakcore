@@ -27,7 +27,6 @@ namespace Flakcore.Display.ParticleEngine
             this.Modifiers = new LinkedList<IParticleModifier>();
             this.Deactivate();
             this.Origin = new Vector2(this.Emitter.Data.BaseTexture.Width / 2, this.Emitter.Data.BaseTexture.Height / 2);
-            this.OffScreenAction = OffScreenAction.NONE;
             this.SourceRectangle = new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height);
 
             this.InitializeModifiers();

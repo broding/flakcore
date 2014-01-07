@@ -11,11 +11,12 @@ namespace Flakcore.Display
     public class Camera
     {
         public Viewport Viewport { get; private set; }
-        public Vector2 Position;
+		public Vector2 Position;
+		public float Rotation;
+		public float Zoom;
+
         public Rectangle BoundingBox;
 
-        private float rotation;
-        public float zoom;
         private Matrix transformMatrix;
 
         public Node followNode { get; set; }
@@ -23,8 +24,8 @@ namespace Flakcore.Display
         public Camera(int x, int y, int width, int height)
         {
             Position = Vector2.Zero;
-            zoom = 0.5725f;
-            rotation = 0;
+			Zoom = 1;
+            Rotation = 0;
             Viewport = new Viewport(x, y, width, height);
             this.BoundingBox = this.Viewport.Bounds;
         }
@@ -38,8 +39,8 @@ namespace Flakcore.Display
         {
             transformMatrix =
                Matrix.CreateTranslation(new Vector3((int)-Position.X, (int)-Position.Y, 0)) *
-               Matrix.CreateRotationZ(rotation) *
-               Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
+               Matrix.CreateRotationZ(Rotation / 1000) *
+               Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
                Matrix.CreateTranslation(new Vector3(Viewport.Width * 0.5f,
                    Viewport.Height * 0.5f, 0));
 
@@ -59,8 +60,8 @@ namespace Flakcore.Display
                 Position.X = followNode.Position.X + followNode.Width / 2;
             }
 
-            Position.X = Math.Max(Director.ScreenSize.X / this.zoom / 2, Position.X);
-            Position.Y = Math.Max(Director.ScreenSize.Y / this.zoom / 2, Position.Y);
+            Position.X = Math.Max(Director.ScreenSize.X / this.Zoom / 2, Position.X);
+            Position.Y = Math.Max(Director.ScreenSize.Y / this.Zoom / 2, Position.Y);
 
             this.BoundingBox.X = (int)Position.X - (int)Director.ScreenSize.X / 2;
             this.BoundingBox.Y = (int)Position.Y - (int)Director.ScreenSize.Y / 2;
