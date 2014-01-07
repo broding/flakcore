@@ -35,7 +35,7 @@ namespace Flakcore.Physics
 		{
 			foreach(Collision collision in _collisions)
 			{
-				if (_quadTree.isColliding (collision.Node1, collision.Node2))
+				if (_quadTree.isColliding (collision.Node1, collision.Node2) || true)
 					collision.resolve (gameTime);
 			}
 		}
