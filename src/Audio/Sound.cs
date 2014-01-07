@@ -8,7 +8,7 @@ namespace FlakCore
 	{
 		public bool Loop 
 		{
-			get { return _instance; }
+			get { return _instance.IsLooped; }
 			set { _instance.IsLooped = value; }
 		}
 
