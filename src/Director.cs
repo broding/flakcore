@@ -53,17 +53,12 @@ namespace Flakcore
         /// <param name="state"></param>
         public static void SwitchState(Type state)
         {
-            Director.SwitchState(state, StateTransition.IMMEDIATELY, StateTransition.IMMEDIATELY);
+			Director.SwitchState ((State)Activator.CreateInstance(state));
         }
 
         public static void SwitchState(State state)
         {
             Core.SwitchState(state);
-        }
-
-        public static void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
-        {
-            Core.SwitchState(state, startTransition, endTransition);
         }
 
 		public static void Collide(Node node1, Node node2)

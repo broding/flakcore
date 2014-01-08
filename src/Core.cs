@@ -137,12 +137,6 @@ namespace Flakcore
             this.currentState = state;
         }
 
-        public void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
-        {
-            this.currentState = null;
-            this.currentState = (State)Activator.CreateInstance(state);
-        }
-
         private void ResetCollisionQuadTree()
         {
             this.collisionQuadTree.clear();
