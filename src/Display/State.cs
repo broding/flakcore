@@ -67,7 +67,7 @@ namespace Flakcore.Display
 
 		public override void DrawCall (SpriteBatch spriteBatch, DrawProperties worldProperties)
 		{
-			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, Director.CurrentDrawCamera.GetTransformMatrix());
+			spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, Director.Camera.GetTransformMatrix());
 			base.DrawCall (spriteBatch, worldProperties);
 			spriteBatch.End();
 
@@ -79,7 +79,7 @@ namespace Flakcore.Display
 				Director.Graphics.GraphicsDevice.SetRenderTarget(layer.RenderTarget);
 				Director.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
-				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, layer.Effect, Director.CurrentDrawCamera.GetTransformMatrix());
+				spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, layer.Effect, Director.Camera.GetTransformMatrix(layer.ScrollFactor));
 				layer.DrawCall(spriteBatch);
 				spriteBatch.End();
 			}

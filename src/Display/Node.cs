@@ -36,8 +36,6 @@ namespace Flakcore.Display
         public float Rotation = 0;
         public float RotationVelocity = 0;
 
-        public Vector2 ScrollFactor = Vector2.One;
-
         public Sides Touching;
         public Sides WasTouching;
 
@@ -258,7 +256,7 @@ namespace Flakcore.Display
         {
             get
             {
-                return Director.CurrentDrawCamera.TransformPosition(this.WorldPosition);
+                return Director.Camera.TransformPosition(this.WorldPosition);
             }
         }
 

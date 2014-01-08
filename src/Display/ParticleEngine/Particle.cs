@@ -88,9 +88,6 @@ namespace Flakcore.Display.ParticleEngine
 
         public override void Draw(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
-            worldProperties.Position.X *= this.ScrollFactor.X;
-            worldProperties.Position.Y *= this.ScrollFactor.Y;
-
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
                 this.Position,

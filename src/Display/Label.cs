@@ -44,8 +44,6 @@ namespace Flakcore.Display
 
             this.TextSize = this.SpriteFont.MeasureString(this.Text);
 
-            worldProperties.Position.X *= this.ScrollFactor.X;
-            worldProperties.Position.Y *= this.ScrollFactor.Y;
             worldProperties.Position.X += this.Width / 2 - this.TextSize.X / 2;
             worldProperties.Position.Y += this.Height / 2 - this.TextSize.Y / 2;
 

@@ -15,9 +15,9 @@ namespace Flakcore
 {
     public class Core
     {
-        public List<Camera> Cameras { get; private set; }
         public CollisionSolver CollisionSolver { get; private set; }
-		
+
+		private Camera _camera;
 		private State currentState;
 		private GraphicsDeviceManager graphics;
         private QuadTree collisionQuadTree;
@@ -33,11 +33,9 @@ namespace Flakcore
             graphics.SynchronizeWithVerticalRetrace = false;
             graphics.ApplyChanges();
 
-            this.Cameras = new List<Camera>();
-            Camera camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
-            this.Cameras.Add(camera);
+            _camera = new Camera(0,0,(int)screenSize.X, (int)screenSize.Y);
 
-            Director.CurrentDrawCamera = camera;
+			Director.Camera = _camera;
             Director.WorldBounds = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
 
             SetupQuadTree();
@@ -93,9 +91,7 @@ namespace Flakcore
 
             Director.Input.Update(gameTime);
 
-            foreach (Camera camera in Cameras)
-                camera.update(gameTime);
-
+			_camera.update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -105,24 +101,14 @@ namespace Flakcore
             if (this.currentState == null)
                 return;
 
-            this.stopwatch.Reset();
-            this.stopwatch.Start();
-            Director.Graphics.GraphicsDevice.Clear(currentState.BackgroundColor);
+			Director.Graphics.GraphicsDevice.Viewport = _camera.Viewport;
 
-            foreach (Camera camera in Cameras)
-            {
-                Director.CurrentDrawCamera = camera;
-                Director.Graphics.GraphicsDevice.Viewport = camera.Viewport;
+			currentState.DrawCall (spriteBatch);
 
-				currentState.DrawCall (spriteBatch);
-
-#if(DEBUG)  
-                this.DrawDebug(spriteBatch, camera, gameTime);    
-#endif
-
-                Node.ResetDrawDepth();
-
-            }
+			#if(DEBUG)  
+				this.DrawDebug(spriteBatch, _camera, gameTime);    
+			#endif
+			Node.ResetDrawDepth();
         }
 
         private void DrawDebug(SpriteBatch spriteBatch, Camera camera, GameTime gameTime)

@@ -31,7 +31,7 @@ namespace Flakcore
                 Core.SetupQuadTree(); 
             } 
         }
-        public static Camera CurrentDrawCamera;
+        public static Camera Camera;
 
         public static SpriteFont FontDefault;
 
@@ -45,7 +45,6 @@ namespace Flakcore
             Director.ScreenSize = screenSize;
             Director.Core = core;
             Director.WorldBounds = Rectangle.Empty;
-
         }
 
         /// <summary>
@@ -65,28 +64,6 @@ namespace Flakcore
         public static void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
         {
             Core.SwitchState(state, startTransition, endTransition);
-        }
-
-        public static void AddCamera(Camera camera)
-        {
-            Core.Cameras.Add(camera);
-
-            RecalculateCameras();
-        }
-
-        private static void RecalculateCameras()
-        {
-            int cameraWidth = (int)ScreenSize.X / Core.Cameras.Count;
-
-            for (int i = 0; i < Core.Cameras.Count; i++)
-            {
-                Core.Cameras.ElementAt(i).resetViewport(cameraWidth * i, 0, cameraWidth, (int)ScreenSize.Y);
-            }
-        }
-
-        public int TotalCameras()
-        {
-            return Core.Cameras.Count;
         }
 
 		public static void Collide(Node node1, Node node2)

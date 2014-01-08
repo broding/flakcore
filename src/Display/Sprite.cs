@@ -96,7 +96,7 @@ namespace Flakcore.Display
 
         public override void DrawCall(SpriteBatch spriteBatch, DrawProperties worldProperties)
         {
-            worldProperties.Position += this.Position;
+			worldProperties.Position += this.Position;
             worldProperties.Alpha = Math.Min(this.Alpha, worldProperties.Alpha);
 
             if (!Visable)
@@ -109,7 +109,7 @@ namespace Flakcore.Display
 
             this.Draw(spriteBatch, worldProperties);
 
-            worldProperties.Position -= this.Position;
+			worldProperties.Position -= this.Position;
 
             base.DrawCall(spriteBatch, worldProperties);
 
@@ -119,9 +119,6 @@ namespace Flakcore.Display
         {
             if (this.Texture == null)
                 return;
-
-            worldProperties.Position.X *= this.ScrollFactor.X;
-            worldProperties.Position.Y *= this.ScrollFactor.Y;
 
             worldProperties.Position.X = (float)Math.Round(worldProperties.Position.X);
             worldProperties.Position.Y = (float)Math.Round(worldProperties.Position.Y);
