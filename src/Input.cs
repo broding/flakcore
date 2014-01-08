@@ -30,11 +30,6 @@ namespace Flakcore
 
         public void Update(GameTime gameTime)
         {
-            this.PreviousGamepadStates[(int)PlayerIndex.One] = GamePad.GetState(PlayerIndex.One);
-            this.PreviousGamepadStates[(int)PlayerIndex.Two] = GamePad.GetState(PlayerIndex.Two);
-            this.PreviousGamepadStates[(int)PlayerIndex.Three] = GamePad.GetState(PlayerIndex.Three);
-            this.PreviousGamepadStates[(int)PlayerIndex.Four] = GamePad.GetState(PlayerIndex.Four);
-
 			this.PreviousKeyboardState = Keyboard.GetState();
 
             for (int i = 0; i < Vibrating.Count; i++)
@@ -52,40 +47,11 @@ namespace Flakcore
 
         }
 
-        public List<GamePadState> getPadStateList
-        {
-            get
-            {
-                List<GamePadState> tempList = new List<GamePadState>();
-                for (int i = 0; i < 4; i++)
-                {
-                    tempList.Add(GamePad.GetState((PlayerIndex)i));
-                }
-                return tempList;
-            }
-        }
-
-
-        public GamePadState GetPadState(PlayerIndex player)
-        {
-            return GamePad.GetState(player);
-        }
-
         public void SetVibrationWithTimer(PlayerIndex player, TimeSpan time, float vibrationStrength = 1f)
         {
             vibratingTime[player] = time;
             this.Vibrating[player] = true;
             GamePad.SetVibration(player, vibrationStrength, vibrationStrength);
-        }
-
-        public bool JustPressed(PlayerIndex player, Buttons button)
-        {
-            GamePadState currentState = GamePad.GetState(player);
-
-            if(currentState.IsButtonDown(button) && this.PreviousGamepadStates[(int)player].IsButtonUp(button))
-                return true;
-            else
-                return false;
         }
 
         public bool JustPressed(Keys key)
@@ -97,38 +63,5 @@ namespace Flakcore
             else
                 return false;
         }
-
-        public InputState GetInputState(PlayerIndex player)
-        {
-            InputState state = new InputState();
-
-            KeyboardState keyboardState = Keyboard.GetState();
-
-            if (keyboardState.IsKeyDown(Keys.Left))
-                state.X = -1;
-            else if(keyboardState.IsKeyDown(Keys.Right))
-                state.X = 1;
-
-            if (keyboardState.IsKeyDown(Keys.Up))
-                state.Y = -1;
-            else if (keyboardState.IsKeyDown(Keys.Down))
-                state.Y = 1;
-
-            if (keyboardState.IsKeyDown(Keys.Space))
-                state.Jump = true;
-
-            if (keyboardState.IsKeyDown(Keys.X))
-                state.Fire = true;
-
-            return state;
-        }
-    }
-
-    public struct InputState
-    {
-        public float X;
-        public float Y;
-        public bool Jump;
-        public bool Fire;
     }
 }
