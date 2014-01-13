@@ -11,6 +11,7 @@ namespace Flakcore.Display
     public class Sprite : Node
     {
         public Texture2D Texture { get; protected set; }
+		public Texture2D BumpTexture { get; protected set; }
         public Facing Facing;
         public Color Color;
         public Rectangle SourceRectangle;
@@ -39,6 +40,11 @@ namespace Flakcore.Display
         {
             this.LoadTexture(texture, texture.Width, texture.Height);
         }
+
+		public void LoadBumpTexture(Texture2D texture)
+		{
+			this.BumpTexture = texture;
+		}
 
         public virtual void LoadTexture(Texture2D texture, int width, int height)
         {

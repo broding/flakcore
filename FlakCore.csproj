@@ -91,6 +91,7 @@
     <Compile Include="src\Utils\Util.cs" />
     <Compile Include="src\Director.cs" />
     <Compile Include="src\Audio\Sound.cs" />
+    <Compile Include="src\Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
