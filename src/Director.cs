@@ -21,14 +21,13 @@ namespace Flakcore
 
         public static int UpdateCalls;
 
-        private static Core Core;
+		private static Core _core;
         private static Rectangle _worldBounds;
         public static Rectangle WorldBounds 
         { 
             get { return _worldBounds; }
             set { 
                 _worldBounds = value;  
-                Core.SetupQuadTree(); 
             } 
         }
         public static Camera Camera;
@@ -43,7 +42,7 @@ namespace Flakcore
             Director.FontController = new FontController();
 
             Director.ScreenSize = screenSize;
-            Director.Core = core;
+			Director._core = core;
             Director.WorldBounds = Rectangle.Empty;
         }
 
@@ -58,12 +57,12 @@ namespace Flakcore
 
         public static void SwitchState(State state)
         {
-            Core.SwitchState(state);
+			_core.SwitchState(state);
         }
 
 		public static void Collide(Node node1, Node node2)
 		{
-			Core.CollisionSolver.AddCollision(node1, node2, null, null);
+			_core.CollisionSolver.AddCollision(node1, node2, null, null);
 		}
 
     }
