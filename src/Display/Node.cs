@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Flakcore.Utils;
 using Flakcore.Physics;
+using FlakCore;
+using FlakCore.Physics;
 
 namespace Flakcore.Display
 {
@@ -29,6 +31,8 @@ namespace Flakcore.Display
 
         public int Width;
         public int Height;
+
+		public ConvexShape ConvexShape;
 
         public Vector2 Origin = Vector2.Zero;
         public Vector2 Scale = Vector2.One;
@@ -99,6 +103,19 @@ namespace Flakcore.Display
 
             activity = null;
         }
+
+		public ConvexShape TransformedConvexShape
+		{
+			get 
+			{
+				Matrix transformMatrix = Matrix.CreateTranslation (Origin.X, Origin.Y, 0) *
+				                         Matrix.CreateRotationZ (Rotation) *
+				                         Matrix.CreateScale (Scale.X, Scale.Y, 0) *
+				                         Matrix.CreateTranslation (Position.X, Position.Y, 0);
+
+				return ConvexShape * transformMatrix;
+			}
+		}
 
         public virtual void Update(GameTime gameTime)
         {

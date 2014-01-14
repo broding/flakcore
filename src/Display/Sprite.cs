@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Flakcore.Utils;
+using FlakCore.Physics;
 
 namespace Flakcore.Display
 {
@@ -53,6 +54,12 @@ namespace Flakcore.Display
             this.Height = height;
             this.animating = false;
             this.SourceRectangle = new Rectangle(0, 0, width, height);
+
+			this.ConvexShape = new ConvexShape();
+			this.ConvexShape.Points.Add (new Vector2 (0, 0));
+			this.ConvexShape.Points.Add (new Vector2 (width, 0));
+			this.ConvexShape.Points.Add (new Vector2 (width, height));
+			this.ConvexShape.Points.Add (new Vector2 (0, height));
         }
 
         public void AddAnimation(string name, int[] frames, float frameRate)
@@ -162,6 +169,11 @@ namespace Flakcore.Display
             sprite.Height = (int)size.Y;
             sprite.SourceRectangle.Width = (int)size.X;
             sprite.SourceRectangle.Height = (int)size.Y;
+			sprite.ConvexShape = new ConvexShape();
+			sprite.ConvexShape.Points.Add (new Vector2 (0, 0));
+			sprite.ConvexShape.Points.Add (new Vector2 (size.X, 0));
+			sprite.ConvexShape.Points.Add (new Vector2 (size.X, size.Y));
+			sprite.ConvexShape.Points.Add (new Vector2 (0, size.Y));
 
             return sprite;
         }
