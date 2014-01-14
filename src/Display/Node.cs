@@ -113,7 +113,7 @@ namespace Flakcore.Display
 				                         Matrix.CreateScale (Scale.X, Scale.Y, 0) *
 				                         Matrix.CreateTranslation (Position.X, Position.Y, 0);
 
-				return ConvexShape * transformMatrix;
+				return (ConvexShape)ConvexShape.Clone() * transformMatrix;
 			}
 		}
 
