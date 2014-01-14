@@ -92,6 +92,7 @@
     <Compile Include="src\Director.cs" />
     <Compile Include="src\Audio\Sound.cs" />
     <Compile Include="src\Renderer.cs" />
+    <Compile Include="src\Physics\ConvexShape.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
