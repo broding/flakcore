@@ -18,7 +18,6 @@ namespace Flakcore.Physics
         public Action<Node, Node> Callback { get; private set; }
         public Func<Node, Node, bool> Checker { get; private set; }
 
-		private Vector2 _intersectionDepth;
 		private float _penetration;
 		private Vector2 _normal;
 
@@ -39,9 +38,9 @@ namespace Flakcore.Physics
 				if(!this.Checker(this.Node1, this.Node2))
 					return false;
 
-			_intersectionDepth = RectangleExtensions.GetIntersectionDepth (Node1.GetBoundingBox (), Node2.GetBoundingBox ());
+			Vector2 intersectionDepth = RectangleExtensions.GetIntersectionDepth (Node1.GetBoundingBox (), Node2.GetBoundingBox ());
 
-			if (_intersectionDepth.LengthSquared () != 0) 
+			if (intersectionDepth.LengthSquared () != 0) 
 			{
 				return boxAndBoxTest ();
 			} 
@@ -185,56 +184,5 @@ namespace Flakcore.Physics
 
 			return new Projection(min, max);
 		}
-       
-        private void separateY(float overlap)
-        {
-			//System.Console.WriteLine (overlap);
-            if (!Node1.Immovable && !Node2.Immovable)
-            {
-				float oldVelocity = Node1.Velocity.Y;
-
-				this.Node1.Position.Y += overlap;
-				this.Node1.Velocity.Y = Node2.Velocity.Y / 20000;
-
-				// divide by two, simulates mass??
-				this.Node2.Position.Y -= overlap;
-				this.Node2.Velocity.Y = oldVelocity / 100000;
-            }
-            else if (!Node1.Immovable)
-            {
-                this.Node1.Position.Y -= overlap;
-				this.Node1.Velocity.Y = 0;
-            }
-            else if (!Node2.Immovable)
-            {
-				this.Node2.Position.Y -= overlap;
-				this.Node2.Velocity.Y = 0;
-            }
-        }
-
-        private void separateX(float overlap)
-        {
-            if (!Node1.Immovable && !Node2.Immovable)
-            {
-				float oldVelocity = Node1.Velocity.X;
-
-				this.Node1.Position.X += overlap;
-				this.Node1.Velocity.X = 0;
-
-				// divide by two, simulates mass??
-				this.Node2.Position.X -= overlap;
-				this.Node2.Velocity.X = 0;
-            }
-            else if (!Node1.Immovable)
-            {
-                this.Node1.Position.X -= overlap;
-				this.Node1.Velocity.X = 0;
-            }
-            else if (!Node2.Immovable)
-            {
-                this.Node2.Position.X -= overlap;
-				this.Node2.Velocity.X = 0;
-            }
-        }
     }
 }
