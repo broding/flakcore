@@ -63,8 +63,6 @@ namespace Flakcore.Display
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
             this.activities = new List<Activity>();
-
-			_boundingBox = new BoundingRectangle (0, 0, 0, 0);
         }
 
         public static float GetDrawDepth(float depth)

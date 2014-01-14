@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +12,11 @@ namespace Flakcore.Physics
     {
         public static Tilemap Tilemap;
 
-        private List<Collision> Collisions;
-        private QuadTree QuadTree;
 		private QuadTree _quadTree; 
 		private List<Collision> _collisions;
 
-        public CollisionSolver(QuadTree quadTree)
+        public CollisionSolver()
         {
-            this.Collisions = new List<Collision>();
-            this.QuadTree = quadTree;
 			_quadTree = new QuadTree (0, new Flakcore.Utils.BoundingRectangle(0,0,Director.ScreenSize.X, Director.ScreenSize.Y));
 			_collisions = new List<Collision> ();
         }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +41,7 @@ namespace Flakcore
 			Director.Camera = _camera;
             Director.WorldBounds = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
 
-            SetupQuadTree();
+			CollisionSolver = new CollisionSolver();
 
             this.stopwatch = new Stopwatch();
         }
@@ -150,12 +150,6 @@ namespace Flakcore
                 // bottom
                 DebugInfo.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y + quad.Height), new Vector2(quad.X + quad.Width, quad.Y + quad.Height));
             }
-        }
-
-        public void SetupQuadTree()
-        {
-            collisionQuadTree = new QuadTree(0, new BoundingRectangle(0, 0, Director.WorldBounds.Width, Director.WorldBounds.Height));
-            CollisionSolver = new CollisionSolver(collisionQuadTree);
         }
     }
 }
