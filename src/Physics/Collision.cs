@@ -6,6 +6,8 @@ using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Flakcore.Utils;
 using Display.Tilemap;
+using FlakCore.Physics;
+using FlakCore;
 
 namespace Flakcore.Physics
 {
@@ -17,6 +19,8 @@ namespace Flakcore.Physics
         public Func<Node, Node, bool> Checker { get; private set; }
 
 		private Vector2 _intersectionDepth;
+		private float _penetration;
+		private Vector2 _normal;
 
         public Collision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
@@ -39,9 +43,7 @@ namespace Flakcore.Physics
 
 			if (_intersectionDepth.LengthSquared () != 0) 
 			{
-				// there is a collision, do stuff with it please!
-
-				return true;
+				return boxAndBoxTest ();
 			} 
 			else 
 			{
@@ -51,22 +53,138 @@ namespace Flakcore.Physics
 
         public void resolve(GameTime gameTime)
         {
-			if (Math.Abs(_intersectionDepth.X) < Math.Abs(_intersectionDepth.Y)) 
+			if(this.Callback != null)
+				this.Callback(Node1, Node2);
+
+			System.Console.WriteLine (_penetration);
+
+			/*
+			if(entity1Collision->trigger && entity2Collision->trigger)
+				return;
+
+			if(entity2Collision->solid && entity1Collision->solid)
+				return;
+			*/
+
+			// TODO add triggers, check if both nodes are triggers, if not, do code here
+
+			Vector2 delta = Node1.Position - Node2.Position;
+
+			if(Vector2Utils.DotProduct(_normal, delta) > 0)
+				_normal *= -1.0f;
+
+			if(!Node1.Immovable && Node2.Immovable)
+				Node1.Position += _normal * (_penetration * 2);
+
+			if(!Node2.Immovable && Node1.Immovable)
+				Node2.Position += _normal * (_penetration * 2);
+
+			if(Node1.Immovable && Node2.Immovable)
 			{
-				separateX (_intersectionDepth.X);
-			} 
-			else 
-			{
-				separateY (_intersectionDepth.Y);
+				Node1.Position -= _normal * (_penetration);
+				Node2.Position += _normal * (_penetration);
 			}
 
+			Node1.Velocity = Vector2.Zero;
+			Node2.Velocity = Vector2.Zero;
 
-            this.Node1.RoundPosition();
-            this.Node2.RoundPosition();
+			// TODO mass/physics/bounce?
 
-            if(this.Callback != null)
-                this.Callback(Node1, Node2);
+			/*
+
+			float x1 = VectorUtil::DotProduct(contact.normal, entity1Physics->velocity);
+			sf::Vector2f v1x = contact.normal * x1;
+			sf::Vector2f v1y = entity1Physics->velocity - v1x;
+
+			float x2 = VectorUtil::DotProduct(contact.normal, entity2Physics->velocity);
+			sf::Vector2f v2x = contact.normal * x2;
+			sf::Vector2f v2y = entity2Physics->velocity - v2x;
+
+			float massFormula1 = (entity1Physics->mass - entity2Physics->mass) / (entity1Physics->mass + entity2Physics->mass);
+			float massFormula2 = (2 * entity1Physics->mass) / (entity1Physics->mass + entity2Physics->mass);
+
+			if(!entity1Collision->solid)
+				entity1Physics->velocity = v1x * massFormula1 + v2x * massFormula2 + v1y;
+
+			if(!entity2Collision->solid)
+				entity2Physics->velocity = v1x * massFormula2 + v2x * massFormula1 + v2y;
+				*/
         }
+
+		private bool boxAndBoxTest()
+		{
+			ConvexShape shape1 = Node1.TransformedConvexShape;
+			ConvexShape shape2 = Node2.TransformedConvexShape;
+
+			List<Vector2> axis1 = shape1.axis;
+			List<Vector2> axis2 = shape2.axis;
+
+			float penetration = Int16.MaxValue;
+			Vector2 normal = Vector2.Zero;
+
+			for(int i = 0; i < shape1.Points.Count; i++)
+			{
+				Vector2 axis = axis1[i];
+
+				Projection projection1 = projectOnAxis(shape1, axis);
+				Projection projection2 = projectOnAxis(shape2, axis);
+
+				if(!projection1.IsOverlapping(projection2))
+					return false;
+				else
+				{
+					float newPenetration = projection1.GetOverlap(projection2);
+					if(newPenetration < penetration)
+					{
+						penetration = newPenetration;
+						normal = axis;
+					}
+				}
+			}
+
+			for(int i = 0; i < shape2.Points.Count; i++)
+			{
+				Vector2 axis = axis2[i];
+
+				Projection projection1 = projectOnAxis(shape1, axis);
+				Projection projection2 = projectOnAxis(shape2, axis);
+
+				if(!projection1.IsOverlapping(projection2))
+					return false;
+				else
+				{
+					float newPenetration = projection1.GetOverlap(projection2);
+					if(newPenetration < penetration)
+					{
+						penetration = newPenetration;
+						normal = axis;
+					}
+				}
+			}
+
+			_penetration = penetration;
+			_normal = normal;
+
+			return true;
+		}
+
+		private Projection projectOnAxis(ConvexShape shape, Vector2 axis)
+		{
+			float min = Vector2Utils.DotProduct(axis, shape.Points[0]);
+			float max = min;
+
+			for(int i = 1; i < shape.Points.Count; i++)
+			{
+				float p = Vector2Utils.DotProduct(axis, shape.Points[i]);
+
+				if(p < min)
+					min = p;
+				else if(p > max)
+					max = p;
+			}
+
+			return new Projection(min, max);
+		}
        
         private void separateY(float overlap)
         {
