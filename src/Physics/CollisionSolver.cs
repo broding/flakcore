@@ -33,10 +33,21 @@ namespace Flakcore.Physics
 
 		public void Resolve(GameTime gameTime)
 		{
+			List<Collision> contacts = new List<Collision> (_collisions.Count);
+
 			foreach(Collision collision in _collisions)
 			{
-				if (_quadTree.isColliding (collision.Node1, collision.Node2) || true)
-					collision.resolve (gameTime);
+				// TODO fix quadtree!!
+				if (_quadTree.isColliding (collision.Node1, collision.Node2) || true) 
+				{
+					if (collision.intersectionTest())
+						contacts.Add (collision);
+				}
+			}
+
+			foreach(Collision collision in contacts)
+			{
+				collision.resolve (gameTime);
 			}
 		}
 

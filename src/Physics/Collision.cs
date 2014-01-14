@@ -16,36 +16,50 @@ namespace Flakcore.Physics
         public Action<Node, Node> Callback { get; private set; }
         public Func<Node, Node, bool> Checker { get; private set; }
 
+		private Vector2 _intersectionDepth;
+
         public Collision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
-
             this.Node1 = node1;
             this.Node2 = node2;
             this.Callback = callback;
             this.Checker = checker;
         }
 
-        public void resolve(GameTime gameTime)
-        {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+		/**
+		 * 	Return true if there is a collision
+		 */
+		public bool intersectionTest()
+		{
 			if(this.Checker != null)
 				if(!this.Checker(this.Node1, this.Node2))
-					return;
+					return false;
 
-			Vector2 intersectionDepth = RectangleExtensions.GetIntersectionDepth (Node1.GetBoundingBox (), Node2.GetBoundingBox ());
+			_intersectionDepth = RectangleExtensions.GetIntersectionDepth (Node1.GetBoundingBox (), Node2.GetBoundingBox ());
 
-			if (intersectionDepth.LengthSquared() != 0) 
+			if (_intersectionDepth.LengthSquared () != 0) 
 			{
-				if (Math.Abs(intersectionDepth.X) < Math.Abs(intersectionDepth.Y)) 
-				{
-					separateX (intersectionDepth.X);
-				} 
-				else 
-				{
-					separateY (intersectionDepth.Y);
-				}
+				// there is a collision, do stuff with it please!
+
+				return true;
+			} 
+			else 
+			{
+				return false;
 			}
+		}
+
+        public void resolve(GameTime gameTime)
+        {
+			if (Math.Abs(_intersectionDepth.X) < Math.Abs(_intersectionDepth.Y)) 
+			{
+				separateX (_intersectionDepth.X);
+			} 
+			else 
+			{
+				separateY (_intersectionDepth.Y);
+			}
+
 
             this.Node1.RoundPosition();
             this.Node2.RoundPosition();
