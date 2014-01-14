@@ -63,6 +63,8 @@ namespace Flakcore.Display
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
             this.activities = new List<Activity>();
+
+			_boundingBox = new BoundingRectangle (0, 0, 0, 0);
         }
 
         public static float GetDrawDepth(float depth)
@@ -195,7 +197,8 @@ namespace Flakcore.Display
 
         public virtual BoundingRectangle GetBoundingBox()
         {
-            return new BoundingRectangle(this.WorldPosition.X, this.WorldPosition.Y, Width, Height);
+			Vector2 worldPosition = this.WorldPosition;
+			return new BoundingRectangle (worldPosition.X, worldPosition.Y, Width, Height);
         }
 
         public virtual Rectangle GetBoundingBox(Vector2 position)
