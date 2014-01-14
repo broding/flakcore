@@ -12,6 +12,7 @@ namespace Flakcore
 {
     public class Director
     {
+		public static bool DrawDebug;
         public static Input Input { get; private set; }
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static ContentManager Content { get; private set; }
@@ -40,7 +41,7 @@ namespace Flakcore
             Director.Content = content;
             Director.Input = new Input();
             Director.FontController = new FontController();
-
+			Director.DrawDebug = false;
             Director.ScreenSize = screenSize;
 			Director._core = core;
             Director.WorldBounds = Rectangle.Empty;

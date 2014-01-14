@@ -99,8 +99,10 @@ namespace Flakcore
 			_renderer.Draw (currentState, spriteBatch);
 
 			#if(DEBUG)  
+			if(Director.DrawDebug)
 				this.DrawDebug(spriteBatch, _camera, gameTime);    
 			#endif
+
 			Node.ResetDrawDepth();
         }
 
