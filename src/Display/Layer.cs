@@ -18,16 +18,10 @@ namespace Flakcore.Display
         {
 			ScrollFactor = Vector2.One;
 
-            this.RenderTarget = new RenderTarget2D(
-                Director.Graphics.GraphicsDevice,
-                (int)Director.ScreenSize.X,
-                (int)Director.ScreenSize.Y,
-                false,
-                SurfaceFormat.Vector4,
-                DepthFormat.None,
-                1,
-                RenderTargetUsage.DiscardContents
-                );
+			this.RenderTarget = new RenderTarget2D (
+				Director.Graphics.GraphicsDevice,
+				(int)Director.ScreenSize.X,
+				(int)Director.ScreenSize.Y);
 
         }
     }
