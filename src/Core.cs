@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,6 +120,11 @@ namespace Flakcore
             //DebugInfo.Draw(spriteBatch);
             spriteBatch.End();
         }
+
+		public void SwitchState(Type state)
+		{
+			SwitchState ((State)Activator.CreateInstance(state));
+		}
 
         public void SwitchState(State state)
         {
