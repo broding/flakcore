@@ -34,7 +34,7 @@ namespace FlakCore
 				if (layer.Parent != null)
 					continue;
 
-				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+				spriteBatch.Begin ();
 
 				spriteBatch.Draw(layer.RenderTarget, Vector2.Zero, Color.White);
 				spriteBatch.End();
