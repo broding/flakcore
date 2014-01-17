@@ -55,7 +55,7 @@ namespace Flakcore.Physics
 			if(this.Callback != null)
 				this.Callback(Node1, Node2);
 
-			System.Console.WriteLine (_penetration);
+			//System.Console.WriteLine (_penetration);
 
 			/*
 			if(entity1Collision->trigger && entity2Collision->trigger)
@@ -86,6 +86,12 @@ namespace Flakcore.Physics
 
 			Node1.Velocity = Vector2.Zero;
 			Node2.Velocity = Vector2.Zero;
+
+			if(!Node1.Immovable && !Node2.Immovable)
+			{
+				Node1.Position -= _normal * (_penetration);
+				Node2.Position += _normal * (_penetration);
+			}
 
 			// TODO mass/physics/bounce?
 
