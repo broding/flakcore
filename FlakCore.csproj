@@ -91,11 +91,12 @@
     <Compile Include="src\Utils\Util.cs" />
     <Compile Include="src\Director.cs" />
     <Compile Include="src\Audio\Sound.cs" />
-    <Compile Include="src\Renderer.cs" />
     <Compile Include="src\Physics\ConvexShape.cs" />
     <Compile Include="src\Utils\Vector2Utils.cs" />
     <Compile Include="src\Physics\Projection.cs" />
     <Compile Include="src\FlakCore.cs" />
+    <Compile Include="src\Renderer.cs" />
+    <Compile Include="src\Utils\EffectUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

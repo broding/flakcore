@@ -12,6 +12,8 @@ namespace Flakcore
 {
     public class Director
     {
+		public const String ContentPath = "../../../Content/";
+
 		public static bool DrawDebug;
         public static Input Input { get; private set; }
         public static GraphicsDeviceManager Graphics { get; private set; }
