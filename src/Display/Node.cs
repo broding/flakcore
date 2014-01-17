@@ -154,7 +154,7 @@ namespace Flakcore.Display
                 this.PreviousVelocity = this.Velocity;
 
                 this.Rotation += RotationVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                this.Position += this.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+				this.Position += this.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
@@ -256,18 +256,6 @@ namespace Flakcore.Display
 
                 return nodes;
             }
-        }
-
-        public void RoundPosition()
-        {
-            this.Position.X = (float)Math.Round(this.Position.X);
-            this.Position.Y = (float)Math.Round(this.Position.Y);
-        }
-
-        public void RoundVelocity()
-        {
-            this.Velocity.X = (float)Math.Round(this.Velocity.X);
-            this.Velocity.Y = (float)Math.Round(this.Velocity.Y);
         }
 
         public Vector2 ScreenPosition

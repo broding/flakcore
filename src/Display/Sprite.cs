@@ -133,9 +133,6 @@ namespace Flakcore.Display
             if (this.Texture == null)
                 return;
 
-            worldProperties.Position.X = (float)Math.Round(worldProperties.Position.X);
-            worldProperties.Position.Y = (float)Math.Round(worldProperties.Position.Y);
-
             if (animating)
                 spriteBatch.Draw(Texture,
                     worldProperties.Position,
