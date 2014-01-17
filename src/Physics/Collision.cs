@@ -18,7 +18,7 @@ namespace Flakcore.Physics
         public Action<Node, Node> Callback { get; private set; }
         public Func<Node, Node, bool> Checker { get; private set; }
 
-		private float _penetration;
+		public float Penetration { get; private set; }
 		private Vector2 _normal;
 
         public Collision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
@@ -73,47 +73,37 @@ namespace Flakcore.Physics
 				_normal *= -1.0f;
 
 			if(!Node1.Immovable && Node2.Immovable)
-				Node1.Position += _normal * (_penetration * 2);
+				Node1.Position += _normal * (Penetration);
 
 			if(!Node2.Immovable && Node1.Immovable)
-				Node2.Position += _normal * (_penetration * 2);
-
-			if(Node1.Immovable && Node2.Immovable)
-			{
-				Node1.Position -= _normal * (_penetration);
-				Node2.Position += _normal * (_penetration);
-			}
-
-			Node1.Velocity = Vector2.Zero;
-			Node2.Velocity = Vector2.Zero;
+				Node2.Position += _normal * (Penetration);
 
 			if(!Node1.Immovable && !Node2.Immovable)
 			{
-				Node1.Position -= _normal * (_penetration);
-				Node2.Position += _normal * (_penetration);
+				Node1.Position -= _normal * (Penetration / 2);
+				Node2.Position += _normal * (Penetration / 2);
 			}
 
-			// TODO mass/physics/bounce?
+			float x1 = Vector2Utils.DotProduct(_normal, Node1.Velocity);
+			Vector2 v1x = _normal * x1;
+			Vector2 v1y = Node1.Velocity - v1x;
 
-			/*
+			float x2 = Vector2Utils.DotProduct(_normal, Node2.Velocity);
+			Vector2 v2x = _normal * x2;
+			Vector2 v2y = Node2.Velocity - v2x;
 
-			float x1 = VectorUtil::DotProduct(contact.normal, entity1Physics->velocity);
-			sf::Vector2f v1x = contact.normal * x1;
-			sf::Vector2f v1y = entity1Physics->velocity - v1x;
+			// 1 is mass
+			float node1mass = 1;
+			float node2mass = 1;
 
-			float x2 = VectorUtil::DotProduct(contact.normal, entity2Physics->velocity);
-			sf::Vector2f v2x = contact.normal * x2;
-			sf::Vector2f v2y = entity2Physics->velocity - v2x;
+			float massFormula1 = (node1mass - node2mass) / (node1mass + node2mass);
+			float massFormula2 = (node2mass - node1mass) / (node2mass + node1mass);
 
-			float massFormula1 = (entity1Physics->mass - entity2Physics->mass) / (entity1Physics->mass + entity2Physics->mass);
-			float massFormula2 = (2 * entity1Physics->mass) / (entity1Physics->mass + entity2Physics->mass);
+			if(!Node1.Immovable)
+				Node1.Velocity = v1x * massFormula1 + v2x * massFormula2 + v1y;
 
-			if(!entity1Collision->solid)
-				entity1Physics->velocity = v1x * massFormula1 + v2x * massFormula2 + v1y;
-
-			if(!entity2Collision->solid)
-				entity2Physics->velocity = v1x * massFormula2 + v2x * massFormula1 + v2y;
-				*/
+			if(!Node2.Immovable)
+				Node2.Velocity = v1x * massFormula2 + v2x * massFormula1 + v2y;
         }
 
 		private bool boxAndBoxTest()
@@ -167,7 +157,7 @@ namespace Flakcore.Physics
 				}
 			}
 
-			_penetration = penetration;
+			Penetration = penetration;
 			_normal = normal;
 
 			return true;
