@@ -12,7 +12,7 @@ namespace Flakcore
 {
     public class Director
     {
-		public const String ContentPath = "../../../Content/";
+		public static String ContentPath = "../../../Content/";
 
 		public static bool DrawDebug;
         public static Input Input { get; private set; }
@@ -47,6 +47,7 @@ namespace Flakcore
             Director.ScreenSize = screenSize;
 			Director._core = core;
             Director.WorldBounds = Rectangle.Empty;
+			Director.ContentPath = Content.RootDirectory;
         }
 
         /// <summary>
