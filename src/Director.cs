@@ -20,8 +20,6 @@ namespace Flakcore
         public static ContentManager Content { get; private set; }
         public static Vector2 ScreenSize { get; private set; }
 
-        public static FontController FontController { get; private set; }
-
         public static int UpdateCalls;
 
 		private static Core _core;
@@ -42,7 +40,6 @@ namespace Flakcore
             Director.Graphics = graphics;
             Director.Content = content;
             Director.Input = new Input();
-            Director.FontController = new FontController();
 			Director.DrawDebug = false;
             Director.ScreenSize = screenSize;
 			Director._core = core;
