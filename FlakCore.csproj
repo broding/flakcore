@@ -75,7 +75,6 @@
     <Compile Include="src\Display\Tilemap\TileLayer.cs" />
     <Compile Include="src\Display\Tilemap\Tilemap.cs" />
     <Compile Include="src\Display\Tilemap\Tileset.cs" />
-    <Compile Include="src\FontController.cs" />
     <Compile Include="src\Input.cs" />
     <Compile Include="src\Physics\Collision.cs" />
     <Compile Include="src\Physics\CollisionSolver.cs" />
